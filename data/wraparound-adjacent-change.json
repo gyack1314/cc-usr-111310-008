@@ -1,0 +1,82 @@
+{
+  "kind": "bucket-migration",
+  "hash_encoding": "sha256-utf8-u64be",
+  "old_ring": [
+    {
+      "token": 40,
+      "owner": "A"
+    },
+    {
+      "token": 200,
+      "owner": "B"
+    }
+  ],
+  "new_ring": [
+    {
+      "token": 10,
+      "owner": "C"
+    },
+    {
+      "token": 40,
+      "owner": "A"
+    },
+    {
+      "token": 200,
+      "owner": "B"
+    }
+  ],
+  "token_bits": 8,
+  "routing_version": "route1",
+  "migration_id": "move1",
+  "fencing": {
+    "A": 7,
+    "B": 8,
+    "C": 9
+  },
+  "base_position": 10,
+  "base_rows": [
+    {
+      "key": "k1",
+      "token": 60,
+      "value": "v1"
+    },
+    {
+      "key": "k2",
+      "token": 120,
+      "value": "v2"
+    },
+    {
+      "key": "wrap",
+      "token": 5,
+      "value": "stay"
+    }
+  ],
+  "source_log": [
+    {
+      "position": 11,
+      "key": "k1",
+      "token": 60,
+      "op": "upsert",
+      "value": "v1-new"
+    },
+    {
+      "position": 12,
+      "key": "k2",
+      "token": 120,
+      "op": "delete"
+    }
+  ],
+  "cutover_position": 12,
+  "reader_routes": [
+    "route1",
+    "route2"
+  ],
+  "late_writer": {
+    "route": "route1",
+    "owner": "B",
+    "fence": 8,
+    "key": "k1",
+    "token": 60,
+    "value": "late"
+  }
+}
